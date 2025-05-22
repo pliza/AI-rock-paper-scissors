@@ -1,4 +1,5 @@
-package Main;
+package main.model;
+
 public class Prob {
 
     public Move move; 

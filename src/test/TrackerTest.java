@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.*;
 
-import Main.Move;
-import Main.Prob;
-import Main.Tracker;
+import main.model.Move;
+import main.model.Prob;
+import main.model.Tracker;
 
 public class TrackerTest {
 

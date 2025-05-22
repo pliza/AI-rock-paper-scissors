@@ -1,4 +1,4 @@
-package Main;
+package main.model;
 public class Move {
     
     public String name;
