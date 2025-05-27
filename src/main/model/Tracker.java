@@ -22,12 +22,10 @@ public class Tracker {
                     //if curr move is already stored as a prob
                     if(p.getMove().equals(curr)) { 
                         p.addCount();
-                        System.out.println(p.getCount());
                         return;
                     }
                 }
                 // prev move is there but curr move is not
-                System.out.println("shouldnt run");
                 probTracker.get(prev).add(new Prob(curr, 1));
             } else { 
                 // put key as prev move and value as new ArrayList w prob of current move and count 1

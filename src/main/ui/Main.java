@@ -4,9 +4,6 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 import main.model.Move;
-import main.model.Paper;
-import main.model.Rock;
-import main.model.Scissors;
 
 // deals with introducing user and displaying the menu
 public class Main {
@@ -33,7 +30,7 @@ public class Main {
 
         while(running) { 
             displayMenu();
-            int option = scanner.nextInt(); 
+            int option = Integer.parseInt(scanner.nextLine());
 
             switch (option) { 
                 case 1:  play();
@@ -57,33 +54,38 @@ public class Main {
     public static void play() { 
         // first move played is random
         Move firstMove; 
-        System.out.println("\n Enter your move. rock, paper, or scissors");
-            String moveName = scanner.nextLine().toLowerCase(); 
+        System.out.println("\nEnter your move. rock, paper, or scissors");
+        String moveName = scanner.nextLine().toLowerCase(); 
 
-            switch(moveName) { 
-                case "rock" :  firstMove = new Rock(moveName); 
-                case "paper" :  firstMove = new Paper(moveName); 
-                case "scissors" :  firstMove = new Scissors(moveName); 
-                default : System.out.println("not a valid move. Default move is rock");
-                            firstMove = new Rock("rock");
-            }
+        firstMove = new Move(moveName);
 
-            int randomNum = ThreadLocalRandom.current().nextInt(1, 4);
 
-            Move gameMove; 
-            switch(randomNum) { 
-                case 1 :  { gameMove = new Rock(moveName); 
-                            System.out.println("Ai plays back: " + gameMove.getName());
-                }   
-                case 2 :  { gameMove = new Paper(moveName); 
-                            System.out.println("Ai plays back: " + gameMove.getName());
-                }   
-                case 3 :  { gameMove = new Scissors(moveName); 
-                            System.out.println("Ai plays back: " + gameMove.getName());
-                }    
-            }
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 4);
 
-            user.play(scanner, firstMove);
+        Move gameMove; 
+        switch(randomNum) { 
+            case 1 :  { gameMove = new Move("rock"); 
+                        System.out.println("Ai plays back: " + gameMove.getName());
+                        break;
+            }   
+            case 2 :  { gameMove = new Move("paper"); 
+                        System.out.println("Ai plays back: " + gameMove.getName());
+                        break;
+            }   
+            default:  { gameMove = new Move("scissors"); 
+                        System.out.println("Ai plays back: " + gameMove.getName());
+                        break;
+            }    
+        }
+
+        // score recorded and displayed 
+        user.AIScore += user.getScore(firstMove, gameMove);
+        user.playerScore += user.getScore(gameMove, firstMove);
+
+
+        System.out.println("your score: " + user.playerScore + " AI score: " + user.AIScore);
+
+        user.play(scanner, firstMove);
         
     }
 
