@@ -24,28 +24,7 @@ public class User {
 
         for(int i = 0; i < 50; i ++) { 
 
-            // check what is the most likely next move so the AI can plan
-            ArrayList<Prob> probs = tracker.getProbTracker().get(prevMove);
-            Move mostLikely = new Move("rock");
-            if(probs != null) { 
-                int max = 0;
-                for(Prob p : probs) {
-                    if(p.getCount() >= max) {
-                        max = p.getCount();
-                        mostLikely = p.getMove();
-                    }
-                }
-            }
-            
-            Move AImove = null;
-            System.out.println("most likely next move is : " + mostLikely.getName());
-            if(mostLikely.getName().toLowerCase().equals("rock")) { 
-                AImove = new Move("paper");
-            } else if(mostLikely.getName().toLowerCase().equals("paper")) { 
-                AImove = new Move("scissors");
-            } else if (mostLikely.getName().toLowerCase().equals("scissors")){ 
-                AImove = new Move("rock");
-            }
+            Move AImove = getAIMove(prevMove);
 
             // let the user make thier move
             System.out.println("\nEnter your move. rock, paper, or scissors");
@@ -70,6 +49,32 @@ public class User {
 
     }
 
+    public Move getAIMove(Move prevMove) { 
+        ArrayList<Prob> probs = tracker.getProbTracker().get(prevMove);
+            Move mostLikely = new Move("rock");
+            if(probs != null) { 
+                int max = 0;
+                for(Prob p : probs) {
+                    if(p.getCount() >= max) {
+                        max = p.getCount();
+                        mostLikely = p.getMove();
+                    }
+                }
+            }
+            
+            Move AImove = null;
+            System.out.println("most likely next move is : " + mostLikely.getName());
+            if(mostLikely.getName().toLowerCase().equals("rock")) { 
+                AImove = new Move("paper");
+            } else if(mostLikely.getName().toLowerCase().equals("paper")) { 
+                AImove = new Move("scissors");
+            } else if (mostLikely.getName().toLowerCase().equals("scissors")){ 
+                AImove = new Move("rock");
+            }
+            System.out.println("your score: " + playerScore + " AI score: " + AIScore);
+        return AImove;
+    }
+
     public int getScore(Move currMove, Move AImove) { 
         String curr = currMove.getName().toLowerCase(); 
         String AI = AImove.getName().toLowerCase();
@@ -90,6 +95,10 @@ public class User {
 
     public void leaderboard() { 
 
+    }
+
+    public Tracker getTracker() { 
+        return tracker;
     }
     
 }

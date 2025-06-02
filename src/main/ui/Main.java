@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args){
 
         scanner = new Scanner(System.in);
-
         startUp();
     }
+
 
     public static void startUp() { 
         System.out.println("\n Welcome to a game of AI Rock Paper Scissors.");
@@ -27,7 +27,6 @@ public class Main {
         user = new User(name);
 
         boolean running = true;
-
         while(running) { 
             displayMenu();
             int option = Integer.parseInt(scanner.nextLine());
@@ -42,6 +41,7 @@ public class Main {
         }
     }
 
+
     public static void displayMenu() { 
         System.out.println("\n🌸 🌸 🌸 Main Menu 🌸 🌸 🌸");
         System.out.println("1. Play a game");
@@ -51,6 +51,7 @@ public class Main {
         System.out.print("Enter your choice: ");
     }
 
+
     public static void play() { 
         // first move played is random
         Move firstMove; 
@@ -58,10 +59,19 @@ public class Main {
         String moveName = scanner.nextLine().toLowerCase(); 
 
         firstMove = new Move(moveName);
-
+        Move gameMove = generateRandomMove();
+        
+        // score recorded and displayed 
+        user.AIScore += user.getScore(firstMove, gameMove);
+        user.playerScore += user.getScore(gameMove, firstMove);
+        System.out.println("your score: " + user.playerScore + " AI score: " + user.AIScore);
+        user.play(scanner, firstMove);     
+    }
+        
+    
+    public static Move generateRandomMove() { 
 
         int randomNum = ThreadLocalRandom.current().nextInt(1, 4);
-
         Move gameMove; 
         switch(randomNum) { 
             case 1 :  { gameMove = new Move("rock"); 
@@ -78,16 +88,8 @@ public class Main {
             }    
         }
 
-        // score recorded and displayed 
-        user.AIScore += user.getScore(firstMove, gameMove);
-        user.playerScore += user.getScore(gameMove, firstMove);
+        return gameMove;
 
-
-        System.out.println("your score: " + user.playerScore + " AI score: " + user.AIScore);
-
-        user.play(scanner, firstMove);
-        
     }
-
 
 }

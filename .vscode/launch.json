@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MainUI",
+            "request": "launch",
+            "mainClass": "main.ui.MainUI",
+            "projectName": "AI RPS_13bdd50f"
+        },
+        {
+            "type": "java",
+            "name": "Run Swing App",
+            "request": "launch",
+            "mainClass": "main.ui.Main"
+        }
+    ]
+  }
+  
